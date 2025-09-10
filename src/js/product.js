@@ -5,12 +5,14 @@ import ProductDetails from './ProductDetails.mjs';
 const productId = getParam('product');
 const dataSource = new ProductData('tents');
 
+
 // console.log(productId);
 // console.log(await dataSource.findProductById(productId));
 
 
 const product = new ProductDetails(productId, dataSource);
 product.init();
+
 
 
 /*function addProductToCart(product) {
