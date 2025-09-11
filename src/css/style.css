@@ -251,6 +251,26 @@ button {
   color: var(--tertiary-color);
   cursor: pointer;
 }
+.discount-badge {
+  background-color: crimson;
+  color: #fff;
+  padding: 4px 8px;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 0.9rem;
+}
+  
+.old-price {
+  text-decoration: line-through;
+  color: #777;
+  margin-right: .5rem;
+}
+
+.new-price {
+  color: #e53935;
+  font-weight: bold;
+}
+
 
 @media screen and (min-width: 500px) {
   body {
