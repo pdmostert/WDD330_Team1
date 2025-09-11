@@ -1,3 +1,6 @@
+export const DEFAULT_DISCOUNT_PERCENT = 10;
+export const USE_DEFAULT_DISCOUNT = true;
+
 // wrapper for querySelector...returns matching element
 export function qs(selector, parent = document) {
   return parent.querySelector(selector);
@@ -39,4 +42,32 @@ export function renderListWithTemplate( templateFn,  parentElement,  list,  posi
   if (clear) parentElement.innerHTML = '';
   parentElement.insertAdjacentHTML(position, htmlString.join(''));
   return parentElement;
+}
+
+export function discount(product) {
+  const list = product.ListPrice;
+  const final = product.FinalPrice;
+
+  if (USE_DEFAULT_DISCOUNT && list && final && list === final) {
+    const defaultPrice = (list * (1 - DEFAULT_DISCOUNT_PERCENT / 100)).toFixed(2);
+    return `
+    <div class="discount">
+      <span class="discount-badge">-${DEFAULT_DISCOUNT_PERCENT}%</span>
+      <p class="old-price">$${list.toFixed(2)}</p>
+      <p class="new-price">$${defaultPrice}</p>
+      </div>
+    `;
+  }
+
+  if (list && final && final < list) {
+    const percent = Math.round(((list - final) / list) * 100);
+    return `
+      <div class="discount">
+        <span class="discount-badge">-${percent}%</span>
+        <p class="old-price">$${list.toFixed(2)}</p>
+        <p class="new-price">$${final.toFixed(2)}</p>
+      </div>
+    `;
+  }
+  return '';
 }

@@ -1,4 +1,4 @@
-import { getLocalStorage, setLocalStorage } from './utils.mjs';
+import { getLocalStorage, setLocalStorage, discount } from './utils.mjs';
 
 function renderCartContents() {
   const cartItems = getLocalStorage('so-cart');
@@ -20,7 +20,9 @@ function cartItemTemplate(item) {
   </a>
   <p class="cart-card__color">${item.Colors[0].ColorName}</p>
   <p class="cart-card__quantity">qty: 1</p>
-  <p class="cart-card__price">$${item.FinalPrice}</p>
+  <div class="cart-card_price">
+    ${discount(item)}
+  </div>
     <button class="remove-cart-item cart-card__remove"  id="${item.Id}" aria-label="Remove from cart">✕</button>
 </li>`;
 
