@@ -1,33 +1,30 @@
-import { renderListWithTemplate, discount } from './utils.mjs';
-
-function productCardTemplate(product) {
-  return `<li class="product-card">
-    <a href="product_pages/?product=${product.Id}">
-      <img src="${product.Image}" alt="Image of ${product.Name} ">
-      <h2 class="card__brand">${product.Brand.Name}</h2>
-      <h3 class="card__name">${product.NameWithoutBrand}</h3>
-      ${discount(product)}
-    </a>
-  </li>`;
-}
-
 export default class ProductList {
-  constructor(category, dataSource, listElement) {
+  constructor(category, dataSource, element) {
     this.category = category;
     this.dataSource = dataSource;
-    this.listElement = listElement;
+    this.element = element;
   }
 
   async init() {
-    const list = await this.dataSource.getData();
-    this.renderList(list);
+    const list = await this.dataSource.getData(this.category);
+    this.render(list);
   }
 
-  renderList(list) {
-    return renderListWithTemplate(
-      productCardTemplate,
-      this.listElement,
-      list,
-    );
+  render(list) {
+    this.element.innerHTML = list.map(product => this.productCard(product)).join('');
+  }
+
+  productCard(product) {
+    return `
+      <div class="product-card">
+        <a href="../product_detail/index.html?id=${product.Id}">
+          <img src="${product.PrimaryMedium?.Url || ''}" alt="${product.Name}" />
+          <h3>${product.Name}</h3>
+          <p>$${product.ListPrice}</p>
+        </a>
+      </div>
+    `;
   }
 }
+
+    
