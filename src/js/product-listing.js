@@ -7,4 +7,13 @@ const dataSource = new ProductData();
 const element = document.querySelector('.product-list');
 const listing = new ProductList(category, dataSource, element);
 
+document.querySelector('.sort-options').addEventListener('change', (event) => {
+  const sortCriteria = event.target.value;
+  listing.sortList(sortCriteria);
+});
+
+
+
 listing.init();
+
+

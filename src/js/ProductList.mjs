@@ -24,9 +24,34 @@ export default class ProductList {
     const list = await this.dataSource.getData(this.category);
     this.renderList(list);
     document.querySelector('.title').textContent = this.category;
+    this.sortList('name-asc');
   }
 
   renderList(list) {
     return renderListWithTemplate(productCardTemplate, this.listElement, list);
+  }
+
+
+  sortList(criteria) {
+    const sortedList = [...this.listElement.children];
+    sortedList.sort((a, b) => {
+      if (criteria === 'name-asc' || criteria === 'name-desc') {
+        const nameA = a.querySelector('p').textContent.toLowerCase();
+        const nameB = b.querySelector('p').textContent.toLowerCase();
+        return criteria === 'name-asc'
+          ? nameA.localeCompare(nameB)
+          : nameB.localeCompare(nameA);
+      } else if (criteria === 'price-asc' || criteria === 'price-desc') {
+        const priceA = parseFloat(
+          a.querySelector('.product-card__price').textContent.replace('$', ''),
+        );
+        const priceB = parseFloat(
+          b.querySelector('.product-card__price').textContent.replace('$', ''),
+        );
+        return criteria === 'price-asc' ? priceA - priceB : priceB - priceA;
+      }
+    });
+    this.listElement.innerHTML = '';
+    sortedList.forEach((item) => this.listElement.appendChild(item));
   }
 }

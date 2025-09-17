@@ -14,7 +14,19 @@
     <main class="divider">
         <section class="products">
             <h2>Top Products: <span class="title highlight"></span></h2>
-            <ul class="product-list"></ul>
+            <div class="sort-options">
+                <label for="sort-by">Sort by:</label>
+                <select id="sort-by">
+                    <option value="name-asc">Name (A-Z)</option>
+                    <option value="name-desc">Name (Z-A)</option>
+                    <option value="price-asc">Price (Low to High)</option>
+                    <option value="price-desc">Price (High to Low)</option>
+                </select>
+            </div>
+            <ul class="product-list">
+                <!-- Product items will be dynamically inserted here -->
+                <!-- Add the ability to sort the product list by name or price -->
+            </ul>
         </section>
     </main>
     <footer id="main-footer"></footer>
