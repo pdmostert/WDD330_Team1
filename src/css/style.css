@@ -312,7 +312,18 @@ button {
   border-color: var(--primary-color);
   outline: none;
 }
+/* total cart css in case we need to switch branches starts*/
+.cart-footer.hide {
+  display: none;
+}
 
+.cart-footer {
+  text-align: right;
+  font-weight: bold;
+  margin-top: 1rem;
+  font-size: 1.2rem;
+}
+/* total cart css in case we need to switch branches ends*/
 @media screen and (min-width: 500px) {
   body {
     max-width: 1080px;

@@ -7,7 +7,7 @@ function productCardTemplate(product) {
         <img src="${product.Images.PrimaryMedium}" alt="${product.Name}">
         <h3>${product.Brand.Name}</h3>
         <p>${product.NameWithoutBrand}</p>
-        <p class="product-card__price">$${product.FinalPrice}</p>
+        ${discount(product)}
       </a>
     </li>
     `;
@@ -43,10 +43,10 @@ export default class ProductList {
           : nameB.localeCompare(nameA);
       } else if (criteria === 'price-asc' || criteria === 'price-desc') {
         const priceA = parseFloat(
-          a.querySelector('.product-card__price').textContent.replace('$', ''),
+          a.querySelector('.new-price').textContent.replace('$', ''),
         );
         const priceB = parseFloat(
-          b.querySelector('.product-card__price').textContent.replace('$', ''),
+          b.querySelector('.new-price').textContent.replace('$', ''),
         );
         return criteria === 'price-asc' ? priceA - priceB : priceB - priceA;
       }

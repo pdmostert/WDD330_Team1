@@ -7,15 +7,19 @@ export default class ProductDetails {
     this.dataSource = dataSource;
   }
   async init() {
+    // use the datasource to get the details for the current product. findProductById will return a promise! use await or .then() to process it
+    // the product details are needed before rendering the HTML
+    // once the HTML is rendered, add a listener to the Add to Cart button
+    // Notice the .bind(this). This callback will not work if the bind(this) is missing. Review the readings from this week on 'this' to understand why.
     this.product = await this.dataSource.findProductById(this.productId);
     this.renderProductDetails();
 
-    const addToCartBtn = document.getElementById('addToCart');
-    if (addToCartBtn) {
-      addToCartBtn.addEventListener('click', this.addProductToCart.bind(this));
-    }
+ const addToCartBtn = document.getElementById('addToCart');
+ if (addToCartBtn) {
+   addToCartBtn.addEventListener('click', this.addProductToCart.bind(this));
+ }
   }
-
+ 
   addProductToCart() {
     const cartItems = getLocalStorage('so-cart') || []; // get cart array of items from local storage if null set to empty array
     cartItems.push(this.product);
@@ -23,27 +27,21 @@ export default class ProductDetails {
   }
 
   renderProductDetails() {
-    productDetailsTemplate(this.product);
+    const productContainer = document.querySelector('.product-detail');
+    productContainer.innerHTML = `
+      <h3>${this.product.Brand.Name || ''}</h3>
+      <h2 class="divider">${this.product.NameWithoutBrand || ''}</h2>
+      <img class="divider"
+        src="${this.product.Images.PrimaryExtraLarge || ''}"
+        alt="${this.product.Name || ''}" />
+      ${discount(this.product)}
+      <p class="product__color">${this.product.Colors[0].ColorName || ''}</p>
+      <p class="product__description">
+        ${this.product.DescriptionHtmlSimple || ''}
+      </p>
+      <div class="product-detail__add">
+        <button id="addToCart" data-id="${this.product.Id || ''}">Add to Cart</button>
+      </div>
+    `;
   }
-}
-
-function productDetailsTemplate(product) {
-  document.querySelector('h2').textContent =
-    product.Category.charAt(0).toUpperCase() + product.Category.slice(1);
-  document.querySelector('#p-brand').textContent = product.Brand.Name;
-  document.querySelector('#p-name').textContent = product.NameWithoutBrand;
-
-  const productImage = document.querySelector('#p-image');
-  productImage.src = product.Images.PrimaryExtraLarge;
-  productImage.alt = product.NameWithoutBrand;
-  const euroPrice = new Intl.NumberFormat('de-DE', {
-    style: 'currency',
-    currency: 'EUR',
-  }).format(Number(product.FinalPrice) * 0.85);
-  document.querySelector('#p-price').textContent = `${euroPrice}`;
-  document.querySelector('#p-color').textContent = product.Colors[0].ColorName;
-  document.querySelector('#p-description').innerHTML =
-    product.DescriptionHtmlSimple;
-
-  document.querySelector('#addToCart').dataset.id = product.Id;
 }
