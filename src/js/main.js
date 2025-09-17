@@ -6,9 +6,10 @@ const productData = new ProductData("tents");
 const listElement = document.querySelector('.product-list');
 
 async function initProductList() {
-  await productData.getData(); // Ensure data is loaded
+  await productData.getData();
   const productList = new ProductList('Tents', productData, listElement);
   productList.init();
 }
 loadHeaderFooter();
 initProductList();
+
