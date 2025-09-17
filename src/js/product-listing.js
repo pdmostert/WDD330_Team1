@@ -1,6 +1,7 @@
 import ProductData from './ProductData.mjs';
 import ProductList from './ProductList.mjs';
-import {  getParam } from './utils.mjs';
+import { getParam, loadHeaderFooter } from './utils.mjs';
+
 
 const category = getParam('category');
 const dataSource = new ProductData();
@@ -12,6 +13,7 @@ document.querySelector('.sort-options').addEventListener('change', (event) => {
   listing.sortList(sortCriteria);
 });
 
+loadHeaderFooter();
 
 
 listing.init();
