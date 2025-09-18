@@ -2,10 +2,11 @@ function convertToJson(res) {
   if (res.ok) {
     return res.json();
   } else {
-    throw new Error("Bad Response");
+    throw new Error('Bad Response');
   }
 }
 
+// Make sure this says "export default" (not just "export")
 export default class ProductData {
   constructor(category) {
     this.category = category;
@@ -13,8 +14,7 @@ export default class ProductData {
   }
   getData() {
     return fetch(this.path)
-      .then(convertToJson)
-      .then((data) => data);
+      .then(convertToJson).then((data) => data);
   }
   async findProductById(id) {
     const products = await this.getData();

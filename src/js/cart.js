@@ -1,28 +1,35 @@
-import { getLocalStorage } from './utils.mjs';
+// cart.js
+import { loadCart, saveCart } from "./utils.mjs";
 
-function renderCartContents() {
-  const cartItems = getLocalStorage('so-cart');
-  const htmlItems = cartItems.map((item) => cartItemTemplate(item));
-  document.querySelector('.product-list').innerHTML = htmlItems.join('');
+// Add item to cart
+export function addToCart(product) {
+  const cart = loadCart();
+
+  // If product exists, increase quantity
+  const existing = cart.find(item => item.id === product.id);
+  if (existing) {
+    existing.quantity += 1;
+  } else {
+    cart.push({ ...product, quantity: 1 });
+  }
+
+  saveCart(cart);
+  alert(`${product.name} added to cart!`);
 }
 
-function cartItemTemplate(item) {
-  const newItem = `<li class="cart-card divider">
-  <a href="#" class="cart-card__image">
-    <img
-      src="${item.Image}"
-      alt="${item.Name}"
-    />
-  </a>
-  <a href="#">
-    <h2 class="card__name">${item.Name}</h2>
-  </a>
-  <p class="cart-card__color">${item.Colors[0].ColorName}</p>
-  <p class="cart-card__quantity">qty: 1</p>
-  <p class="cart-card__price">$${item.FinalPrice}</p>
-</li>`;
-
-  return newItem;
+// Get cart contents
+export function getCart() {
+  return loadCart();
 }
 
-renderCartContents();
+// Remove one item by ID
+export function removeFromCart(productId) {
+  let cart = loadCart();
+  cart = cart.filter(item => item.id !== productId);
+  saveCart(cart);
+}
+
+// Clear cart
+export function clearCart() {
+  saveCart([]);
+}
