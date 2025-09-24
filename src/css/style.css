@@ -412,6 +412,51 @@ button {
   }
 }
 
+
+/* Newsletter Styles */
+.newsletter {
+  padding: 2rem 1rem;
+  text-align: center;
+  background-color: #faf9f6;
+  border-radius: 12px;
+  margin: 2rem auto;
+  max-width: 600px;
+  box-shadow: 0 2px 8px rgba(80, 80, 80, 0.1);
+}
+
+.newsletter h2 {
+  color: var(--secondary-color);
+  margin-bottom: 0.5rem;
+}
+
+.newsletter p {
+  margin-bottom: 1rem;
+  font-size: 1rem;
+  color: var(--dark-grey);
+}
+
+.newsletter-form {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.newsletter-form input[type="email"] {
+  padding: 0.6rem;
+  border: 1px solid var(--light-grey);
+  border-radius: 6px;
+  flex: 1 1 250px;
+  font-size: 1rem;
+}
+
+.newsletter-form button {
+  padding: 0.6rem 1.2rem;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+
+
 footer {
   font-size: var(--small-font);
   padding: 1em;
