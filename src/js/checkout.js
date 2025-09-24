@@ -1,17 +1,18 @@
-import { loadHeaderFooter } from './utils.mjs';
-import CheckoutProcess from './CheckoutProcess.mjs';
-import ExternalServices from './ExternalServices.mjs';
+import { loadHeaderFooter } from "./utils.mjs";
+import CheckoutProcess from "./CheckoutProcess.mjs";
 
-loadHeaderFooter();
 
-const myServices = new ExternalServices();
-const myCheckout = new CheckoutProcess('so-cart', '.order-summary', myServices);
-myCheckout.init();
+const form = document.querySelector("#checkout-form");
+const checkout = new CheckoutProcess("so-cart", "#order-summary");
+checkout.init();
+checkout.calculateOrderTotal();
 
-async function checkoutFormHandler(e) {
+document.querySelector("input[name='zip']").addEventListener("blur", () => {
+  checkout.calculateOrderTotal();
+});
+
+form.addEventListener("submit", async (e) => {
   e.preventDefault();
-//   console.log(e.target);
-  myCheckout.checkout(e.target);
-}
-
-document.querySelector('.checkout-form').addEventListener('submit', checkoutFormHandler);
+  await checkout.checkout(form);
+});
+loadHeaderFooter();

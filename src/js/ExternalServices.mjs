@@ -1,4 +1,5 @@
 const baseURL = import.meta.env.VITE_SERVER_URL;
+const sendURL = import.meta.env.VITE_SERVER_URL_SEND;
 
 function convertToJson(res) {
   if (res.ok) {
@@ -11,7 +12,7 @@ function convertToJson(res) {
 export default class ExternalServices {
   constructor() {}
   async getData(category) {
-    const response = await fetch(`${baseURL}products/search/${category}`);
+    const response = await fetch(`${baseURL}products/search/${category} `);
     const data = await convertToJson(response);
     return data.Result;
   }
@@ -19,21 +20,18 @@ export default class ExternalServices {
   async findProductById(id) {
     const response = await fetch(`${baseURL}product/${id}`);
     const data = await convertToJson(response);
-    // console.log(data.Result);
+    console.log(data.Result);
     return data.Result;
   }
-
-  async checkout(order) {
+  
+  async sendData(order) {
     const options = {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(order),
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(order)
     };
-    const response = await fetch(`${baseURL}checkout`,options);
-    console.log(response);
-    const data = await convertToJson(response);
-    return data;
+
+    const response = await fetch(sendURL, options);
+    return await convertToJson(response);
   }
 }
