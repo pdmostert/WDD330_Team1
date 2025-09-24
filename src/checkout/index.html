@@ -20,16 +20,16 @@
     <main class="divider">
       <section class="products">
         <h2>Review & Place your Order</h2>
-        <form action="/checkout" method="post">
+
+        <form id="checkout-form">
           <div class="section">
-            <h2>Customer Name</h2>
             <label>
               First Name:
-              <input type="text" name="first_name" required>
+              <input type="text" name="fname" required>
             </label>
             <label>
               Last Name:
-              <input type="text" name="last_name" required>
+              <input type="text" name="lname" required>
             </label>
           </div>
         
@@ -37,7 +37,7 @@
             <h2>Address</h2>
             <label>
               Street Address:
-              <input type="text" name="street_address" required>
+              <input type="text" name="street" required>
             </label>
             <label>
               City:
@@ -49,7 +49,7 @@
             </label>
             <label>
               Zip Code:
-              <input type="text" name="zip_code" required pattern="\d{5}">
+              <input type="text" name="zip" required pattern="\d{5}">
             </label>
           </div>
         
@@ -57,27 +57,29 @@
             <h2>Payment</h2>
             <label>
               Credit Card Number:
-              <input type="text" name="card_number" required pattern="\d{16}">
+              <input type="text" name="cardNumber" required pattern="\d{16}">
             </label>
             <label>
               Expiration Date:
-              <input type="month" name="expiration_date" required>
+              <input type="month" name="expiration" required>
             </label>
             <label>
               Security Code (CVV):
-              <input type="text" name="security_code" required pattern="\d{3}">
+              <input type="text" name="code" required pattern="\d{3}">
             </label>
           </div>
         
-          <button type="submit" class="btn">Checkout</button>
-        </form>
-        <div class="order-summary">
+          
+        
+        <div class="order-summary" id="order-summary">
           <h3>Order Summary</h3>
-          <p>Subtotal: $0.00</p>
-          <p>Tax: $0.00</p>
-          <p>Shipping Estimate: $0.00</p>
-          <p><strong>Order Total: $0.00</strong></p>
+          <p>Subtotal: <span id="subtotal">$0.00</span></p>
+          <p>Tax: <span id="tax">$0.00</span></p>
+          <p>Shipping Estimate: <span id="shipping">$0.00</span></p>
+          <p><strong>Order Total: <span id="order-total">$0.00</span></strong></p>
         </div>
+        <button type="submit" class="btn">Checkout</button>
+        </form>
       </section>
     </main>
 
