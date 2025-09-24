@@ -14,10 +14,10 @@ export default class ProductDetails {
     this.product = await this.dataSource.findProductById(this.productId);
     this.renderProductDetails();
 
- const addToCartBtn = document.getElementById('addToCart');
- if (addToCartBtn) {
-   addToCartBtn.addEventListener('click', this.addProductToCart.bind(this));
- }
+    const addToCartBtn = document.getElementById('addToCart');
+    if (addToCartBtn) {
+      addToCartBtn.addEventListener('click', this.addProductToCart.bind(this));
+    }
   }
  
   addProductToCart() {
