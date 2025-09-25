@@ -1,14 +1,13 @@
 export const DEFAULT_DISCOUNT_PERCENT = 10;
 export const USE_DEFAULT_DISCOUNT = true;
 
-// wrapper for querySelector...returns matching element
+
 export function qs(selector, parent = document) {
   return parent.querySelector(selector);
 }
-// or a more concise version if you are into that sort of thing:
-// export const qs = (selector, parent = document) => parent.querySelector(selector);
 
-// retrieve data from localstorage
+
+
 export function getLocalStorage(key) {
   const data = JSON.parse(localStorage.getItem(key));
   if (key === 'so-cart') {
@@ -16,11 +15,11 @@ export function getLocalStorage(key) {
   }
   return data;
 }
-// save data to local storage
+
 export function setLocalStorage(key, data) {
   localStorage.setItem(key, JSON.stringify(data));
 }
-// set a listener for both touchend and click
+
 export function setClick(selector, callback) {
   qs(selector).addEventListener('touchend', (event) => {
     event.preventDefault();
@@ -100,6 +99,7 @@ export function discount(product) {
   }
   return '';
 }
+<<<<<<< HEAD
 // superscript for the cart count logic
 export function updateCartCount() {
   const cart = getLocalStorage('so-cart') || [];
@@ -149,3 +149,31 @@ export function removeAllAlerts() {
   const alerts = document.querySelectorAll('.alert');
   alerts.forEach((alert) => document.querySelector('main').removeChild(alert));
 }
+=======
+
+export function alertMessage(message, scroll = true, duration = 3000) {
+  const alert = document.createElement("div");
+  alert.classList.add("alert");
+  const cleanMessage = String(message).trim();
+  alert.innerHTML = `<p>${cleanMessage}</p><span>X</span>`;
+  console.log("Alert message:", message);
+
+
+
+  alert.addEventListener("click", function (e) {
+    if (e.target.tagName == "SPAN") {
+      main.removeChild(this);
+    }
+  });
+  const main = document.querySelector("main");
+  main.prepend(alert);
+
+  if (scroll) window.scrollTo(0, 0);
+
+}
+
+export function removeAllAlerts() {
+  const alerts = document.querySelectorAll(".alert");
+  alerts.forEach((alert) => document.querySelector("main").removeChild(alert));
+}
+>>>>>>> 19ac56203e95b26221fc1b9ec01f8eb70ed67c32

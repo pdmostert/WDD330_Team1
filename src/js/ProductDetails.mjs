@@ -1,6 +1,10 @@
+<<<<<<< HEAD
 import { getLocalStorage, setLocalStorage, discount, alertMessage, updateCartCount } from './utils.mjs';
 
 
+=======
+import { getLocalStorage, setLocalStorage, discount, alertMessage } from './utils.mjs';
+>>>>>>> 19ac56203e95b26221fc1b9ec01f8eb70ed67c32
 
 export default class ProductDetails {
   constructor(productId, dataSource) {
@@ -28,10 +32,15 @@ export default class ProductDetails {
     const cartItems = getLocalStorage('so-cart') || [];
     cartItems.push(this.product);
     setLocalStorage('so-cart', cartItems);
+<<<<<<< HEAD
     // alert message to show when an item was succesfully added to the cart
     alertMessage("✅ Item added to cart successfully!", true, 3000, "success");
     // logic for the superscript to show the count of the items in the cart
     updateCartCount();
+=======
+
+    alertMessage("✅ Item added to cart successfully!", true, 3000, "success");
+>>>>>>> 19ac56203e95b26221fc1b9ec01f8eb70ed67c32
   }
 
   // helper to safely extract a usable image URL string from PrimaryLarge or Src property

@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import { getLocalStorage, discount,removeAllAlerts, alertMessage } from './utils.mjs';
+=======
+import { getLocalStorage, setLocalStorage, alertMessage, removeAllAlerts, discount } from './utils.mjs';
+>>>>>>> 19ac56203e95b26221fc1b9ec01f8eb70ed67c32
 import ExternalServices from './ExternalServices.mjs';
 
 function getDiscountedNumber(item) {
@@ -90,20 +94,21 @@ export default class CheckoutProcess {
   async checkout(form) {
     const order = formDataToJSON(form);
     if (order.expiration) {
-  const [year, month] = order.expiration.split("-");
-  const shortYear = year.slice(-2);
-  const trimmedMonth = month.replace(/^0/, "");
-  order.expiration = `${trimmedMonth}/${shortYear}`;
-}
-    order.orderDate = new Date().toISOString();
-    order.orderTotal = this.orderTotal.toFixed(2);
-    order.tax = this.tax.toFixed(2);
-    order.shipping = this.shipping;
-    order.items = this.packageItems(this.list);
+      const [year, month] = order.expiration.split("-");
+      const shortYear = year.slice(-2);
+      const trimmedMonth = month.replace(/^0/, "");
+      order.expiration = `${trimmedMonth}/${shortYear}`;
+    }
+      order.orderDate = new Date().toISOString();
+      order.orderTotal = this.orderTotal.toFixed(2);
+      order.tax = this.tax.toFixed(2);
+      order.shipping = this.shipping;
+      order.items = this.packageItems(this.list);
+      console.log(order);
 
       try {
-        console.log("Sending order:", order);
 
+<<<<<<< HEAD
       const service = new ExternalServices();
       await service.sendData(order);
       const response = await service.sendData(order);
@@ -119,5 +124,28 @@ export default class CheckoutProcess {
         }
         // console.error('Checkout failed:', err);
       }
+=======
+        const service = new ExternalServices();
+        await service.sendData(order);
+        const response = await service.sendData(order);
+        console.log("Order submitted:", response);
+        setLocalStorage("so-cart", []);
+        location.assign("/checkout/success.html");
+      } catch (err) {
+      removeAllAlerts();
+
+      const messages = (() => {
+        try {
+          const parsed = JSON.parse(err.message);
+          return typeof parsed === "object" ? Object.values(parsed) : [parsed];
+        } catch {
+          return [err.message];
+        }
+      })();
+    
+      messages.forEach(alertMessage);
+      console.error("Checkout error:", err);
+    }
+>>>>>>> 19ac56203e95b26221fc1b9ec01f8eb70ed67c32
   }
 }
