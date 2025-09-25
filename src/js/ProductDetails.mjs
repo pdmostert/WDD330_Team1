@@ -1,4 +1,6 @@
-import { getLocalStorage, setLocalStorage, discount } from './utils.mjs';
+import { getLocalStorage, setLocalStorage, discount, alertMessage, updateCartCount } from './utils.mjs';
+
+
 
 export default class ProductDetails {
   constructor(productId, dataSource) {
@@ -26,6 +28,10 @@ export default class ProductDetails {
     const cartItems = getLocalStorage('so-cart') || [];
     cartItems.push(this.product);
     setLocalStorage('so-cart', cartItems);
+    // alert message to show when an item was succesfully added to the cart
+    alertMessage("✅ Item added to cart successfully!", true, 3000, "success");
+    // logic for the superscript to show the count of the items in the cart
+    updateCartCount();
   }
 
   // helper to safely extract a usable image URL string from PrimaryLarge or Src property
@@ -157,3 +163,4 @@ export default class ProductDetails {
     }
   }
 }
+

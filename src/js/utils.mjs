@@ -67,6 +67,8 @@ export async function loadHeaderFooter() {
   const footerElement = document.querySelector('#main-footer');
   renderWithTemplate(headerTemplate, headerElement);
   renderWithTemplate(footerTemplate, footerElement);
+  
+  updateCartCount();
 }
 
 export function discount(product) {
@@ -98,6 +100,17 @@ export function discount(product) {
   }
   return '';
 }
+// superscript for the cart count logic
+export function updateCartCount() {
+  const cart = getLocalStorage('so-cart') || [];
+  const count = cart.length;
+  const badge = document.querySelector('.cart-count');
+  if (badge) {
+    badge.textContent = count;
+    badge.style.display = count > 0 ? 'inline-block' : 'none';
+  }
+}
+
 
 export function alertMessage(message, scroll = true) {
   // create element to hold the alert
