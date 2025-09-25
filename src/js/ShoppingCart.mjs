@@ -1,4 +1,4 @@
-import { getLocalStorage, setLocalStorage, renderListWithTemplate, discount } from './utils.mjs';
+import { getLocalStorage, setLocalStorage, renderListWithTemplate, discount, updateCartCount } from './utils.mjs';
 
 function cartItemTemplate(item) {
   /* Change the following source file for the img to item.Images.PrimaryMedium */
@@ -74,6 +74,7 @@ export default class ShoppingCart {
     this.cartItems = this.cartItems.filter((item) => item.Id !== id);
     setLocalStorage('so-cart', this.cartItems);
     this.renderCart();
+    updateCartCount();
   }
 
   init() {
