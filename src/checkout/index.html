@@ -22,62 +22,63 @@
         <h2>Review & Place your Order</h2>
 
         <form id="checkout-form">
-          <div class="section">
-            <label>
+          <fieldset class="section" >
+            <legend>Contact Information</legend>
+            <label class="top">
               First Name:
               <input type="text" name="fname" required>
             </label>
-            <label>
+            <label class="top">
               Last Name:
               <input type="text" name="lname" required>
             </label>
-          </div>
+          </fieldset>
         
-          <div class="section">
-            <h2>Address</h2>
-            <label>
+          <fieldset class="section" >
+            <legend>Address</legend>
+            <label class="top">
               Street Address:
               <input type="text" name="street" required>
             </label>
-            <label>
+            <label class="top">
               City:
               <input type="text" name="city" required>
             </label>
-            <label>
+            <label class="top">
               State:
               <input type="text" name="state" required>
             </label>
-            <label>
+            <label class="top">
               Zip Code:
               <input type="text" name="zip" required pattern="\d{5}">
             </label>
-          </div>
-        
-          <div class="section">
-            <h2>Payment</h2>
-            <label>
+          </fieldset>
+
+          <fieldset class="section" >
+            <legend>Payment</legend>
+            <label class="top">
               Credit Card Number:
               <input type="text" name="cardNumber" required pattern="\d{16}">
             </label>
-            <label>
+            <label class="top">
               Expiration Date:
               <input type="month" name="expiration" required>
             </label>
-            <label>
+            <label class="top">
               Security Code (CVV):
-              <input type="text" name="code" required pattern="\d{3}">
+              <input type="text" name="code" required  pattern="[0-9]{3}" maxlength="3" inputmode="numeric" title="Three digit security code">
             </label>
           </div>
         
           
         
-        <div class="order-summary" id="order-summary">
-          <h3>Order Summary</h3>
+        <fieldset class="order-summary" id="order-summary">
+          <legend>Order Summary</legend>
           <p>Subtotal: <span id="subtotal">$0.00</span></p>
           <p>Tax: <span id="tax">$0.00</span></p>
           <p>Shipping Estimate: <span id="shipping">$0.00</span></p>
           <p><strong>Order Total: <span id="order-total">$0.00</span></strong></p>
-        </div>
+        </fieldset>
         <button type="submit" class="btn">Checkout</button>
         </form>
       </section>

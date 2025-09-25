@@ -1,4 +1,4 @@
-import { getLocalStorage, discount } from './utils.mjs';
+import { getLocalStorage, discount,removeAllAlerts, alertMessage } from './utils.mjs';
 import ExternalServices from './ExternalServices.mjs';
 
 function getDiscountedNumber(item) {
@@ -107,9 +107,17 @@ export default class CheckoutProcess {
       const service = new ExternalServices();
       await service.sendData(order);
       const response = await service.sendData(order);
-      console.log("Order submitted:", response);
-    } catch (err) {
-      console.error("Checkout failed:", err);
-    }
+        console.log("Order submitted:", response);
+        localStorage.removeItem(this.key);
+        window.location.href = "success.html";
+        
+      } catch (err) {
+        // get rid of any preexisting alerts.
+        removeAllAlerts();
+        for (let message in err.message) {
+          alertMessage(err.message[message]);
+        }
+        // console.error('Checkout failed:', err);
+      }
   }
 }
