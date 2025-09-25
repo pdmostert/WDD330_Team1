@@ -36,14 +36,19 @@ export function getParam(param) {
   return product;
 }
 
-
-export function renderListWithTemplate( templateFn,  parentElement,  list,  position = 'afterbegin', clear = false) {
+export function renderListWithTemplate(
+  templateFn,
+  parentElement,
+  list,
+  position = 'afterbegin',
+  clear = false,
+) {
   const htmlString = list.map(templateFn);
   if (clear) parentElement.innerHTML = '';
   parentElement.insertAdjacentHTML(position, htmlString.join(''));
   return parentElement;
 }
-export function renderWithTemplate( template,  parentElement,  data,  callback) {
+export function renderWithTemplate(template, parentElement, data, callback) {
   parentElement.innerHTML = template;
   if (callback) {
     callback(data);
@@ -55,14 +60,13 @@ export async function loadTemplate(path) {
   return template;
 }
 export async function loadHeaderFooter() {
-  const headerTemplate = await loadTemplate("../partials/header.html");
-  const footerTemplate = await loadTemplate("../partials/footer.html");
+  const headerTemplate = await loadTemplate('../partials/header.html');
+  const footerTemplate = await loadTemplate('../partials/footer.html');
 
-  const headerElement = document.querySelector("#main-header");
-  const footerElement = document.querySelector("#main-footer");
+  const headerElement = document.querySelector('#main-header');
+  const footerElement = document.querySelector('#main-footer');
   renderWithTemplate(headerTemplate, headerElement);
   renderWithTemplate(footerTemplate, footerElement);
-
 }
 
 export function discount(product) {
@@ -70,7 +74,9 @@ export function discount(product) {
   const final = product.FinalPrice;
 
   if (USE_DEFAULT_DISCOUNT && list && final && list === final) {
-    const defaultPrice = (list * (1 - DEFAULT_DISCOUNT_PERCENT / 100)).toFixed(2);
+    const defaultPrice = (list * (1 - DEFAULT_DISCOUNT_PERCENT / 100)).toFixed(
+      2,
+    );
     return `
     <div class="discount">
       <span class="discount-badge">-${DEFAULT_DISCOUNT_PERCENT}%</span>
@@ -91,4 +97,42 @@ export function discount(product) {
     `;
   }
   return '';
+}
+
+export function alertMessage(message, scroll = true) {
+  // create element to hold the alert
+  const alert = document.createElement('div');
+  alert.classList.add('alert');
+
+  // message content first
+  const msgSpan = document.createElement('span');
+  msgSpan.className = 'alert-message';
+  msgSpan.textContent = message;
+
+  // close button at end
+  const closeBtn = document.createElement('span');
+  closeBtn.className = 'closebtn';
+  closeBtn.setAttribute('role', 'button');
+  closeBtn.setAttribute('aria-label', 'Close alert');
+  closeBtn.innerHTML = '&times;';
+
+  // assemble and insert
+  alert.appendChild(msgSpan);
+  alert.appendChild(closeBtn);
+
+  const main = document.querySelector('main');
+  main.prepend(alert);
+
+  // close handler
+  closeBtn.addEventListener('click', () => {
+    if (main.contains(alert)) main.removeChild(alert);
+  });
+
+  // optional scroll
+  if (scroll) window.scrollTo(0, 0);
+}
+
+export function removeAllAlerts() {
+  const alerts = document.querySelectorAll('.alert');
+  alerts.forEach((alert) => document.querySelector('main').removeChild(alert));
 }

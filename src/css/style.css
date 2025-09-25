@@ -462,3 +462,67 @@ footer {
   font-size: var(--small-font);
   padding: 1em;
 }
+
+form fieldset{
+    margin: 2rem 0;
+    border: 1px solid #445ba9;
+    border-radius: 10px;
+    padding: .5rem 2%;
+}
+
+form legend{
+    color: #1c3daa;
+    margin: 0 1rem;
+    padding: 0;
+}
+
+form label.top, form div{
+    display: block;
+    margin: 1rem 0;
+    padding-top: 1rem;
+    color: #9c2c13;
+    font-size: .8rem;
+}
+form label.top input,form label.top select{
+    /* -webkit-appearance: none; */
+    display: block;
+    font-size: 1rem;
+    border: solid 1px #999;
+    border-radius: 4px;
+    padding: .75rem;
+    color: #555;
+    width: 100%;
+    max-width: 20rem;
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+
+.thank-you{
+    
+    text-align: center;
+    margin: 10vh auto;
+    padding: 2rem;
+}
+
+/* alert styles */
+.alert {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5em;
+  background-color: var(--primary-color);
+  border: 1px solid darkorange;
+}
+.alert > p {
+  margin: 0;
+}
+.alert{
+  & .closebtn {
+    background: none;
+    border: none;
+    font-size: 1.2em;
+    font-weight: bold;
+    color: rgb(0, 0, 0);
+    cursor: pointer;
+  }
+}
