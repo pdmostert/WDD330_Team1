@@ -1,4 +1,4 @@
-import { loadHeaderFooter } from "./utils.mjs";
+import { alertMessage, loadHeaderFooter, removeAllAlerts } from "./utils.mjs";
 import CheckoutProcess from "./CheckoutProcess.mjs";
 
 
@@ -7,12 +7,21 @@ const checkout = new CheckoutProcess("so-cart", "#order-summary");
 checkout.init();
 checkout.calculateOrderTotal();
 
-document.querySelector("input[name='zip']").addEventListener("blur", () => {
+document.querySelector("input[name='zip']")
+  .addEventListener("blur", () => {
   checkout.calculateOrderTotal();
 });
 
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
-  await checkout.checkout(form);
+  removeAllAlerts();
+  const chk_status = form.checkValidity();
+  form.reportValidity();
+
+  if (!chk_status) {
+    alertMessage("Invalid")
+  } {
+    await checkout.checkout(form);
+  }
 });
 loadHeaderFooter();

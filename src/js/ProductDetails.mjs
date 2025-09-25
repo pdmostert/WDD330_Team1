@@ -1,4 +1,4 @@
-import { getLocalStorage, setLocalStorage, discount } from './utils.mjs';
+import { getLocalStorage, setLocalStorage, discount, alertMessage } from './utils.mjs';
 
 export default class ProductDetails {
   constructor(productId, dataSource) {
@@ -26,6 +26,8 @@ export default class ProductDetails {
     const cartItems = getLocalStorage('so-cart') || [];
     cartItems.push(this.product);
     setLocalStorage('so-cart', cartItems);
+
+    alertMessage("✅ Item added to cart successfully!", true, 3000, "success");
   }
 
   // helper to safely extract a usable image URL string from PrimaryLarge or Src property
